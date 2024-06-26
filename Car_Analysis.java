@@ -18,7 +18,7 @@ public class Car_Analysis extends StarMacro {
   private void execute0() {
     Simulation sim = getActiveSimulation();
 
-    out = outputFile("/home/ksodlehe/star/Ahmed Analysis/Summary.csv");
+    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summary.csv");
     
     Units m = (Units) sim.getUnitsManager().getObject("m");
     Units mm = (Units) sim.getUnitsManager().getObject("mm");
@@ -146,16 +146,8 @@ public class Car_Analysis extends StarMacro {
       
       String data = "";
       for(NamedObject param : getParameters()){
-        // If parameter is a vector (corner offsets)
-        if(param.getDisplayName().contains("Corner")){
-          VectorGlobalParameter p = (VectorGlobalParameter) param;
-          data += p.getQuantity().toString().replaceAll(", ", " / ").replaceAll("\\[|\\]", "");
-        }
-        // If parameter is a scalar
-        else {
-          ScalarGlobalParameter p = (ScalarGlobalParameter) param;
-          data += p.getQuantity().toString();
-        }
+        ScalarGlobalParameter p = (ScalarGlobalParameter) param;
+        data += p.getQuantity().toString();
         data += ", ";
       }
 
@@ -225,16 +217,16 @@ public class Car_Analysis extends StarMacro {
   private void setTunnelUnits(Units back, Units front, Units side, Units top){
     Simulation sim = getActiveSimulation();
 
-    ScalarGlobalParameter tunnelBack = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Dimension - Back");
+    ScalarGlobalParameter tunnelBack = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Back Offset");
     tunnelBack.getQuantity().setUnits(back);
 
-    ScalarGlobalParameter tunnelFront = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Dimension - Front");
+    ScalarGlobalParameter tunnelFront = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Front Offset");
     tunnelFront.getQuantity().setUnits(front);
 
-    ScalarGlobalParameter tunnelSide = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Dimension - Side");
+    ScalarGlobalParameter tunnelSide = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Side Offset");
     tunnelSide.getQuantity().setUnits(side);
 
-    ScalarGlobalParameter tunnelTop = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Dimension - Back");
+    ScalarGlobalParameter tunnelTop = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Top Offset");
     tunnelTop.getQuantity().setUnits(top);
   }
   /**
@@ -248,22 +240,21 @@ public class Car_Analysis extends StarMacro {
     Simulation sim = getActiveSimulation();
 
     // Set back offset
-    ScalarGlobalParameter tunnelBack = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Dimension - Back");
+    ScalarGlobalParameter tunnelBack = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Back Offset");
     tunnelBack.getQuantity().setValue(back);
 
     // Set front offset
-    ScalarGlobalParameter tunnelFront = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Dimension - Front");
+    ScalarGlobalParameter tunnelFront = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Front Offset");
     tunnelFront.getQuantity().setValue(front);
 
     // Set side offset
-    ScalarGlobalParameter tunnelSide = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Dimension - Side");
+    ScalarGlobalParameter tunnelSide = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Side Offset");
     tunnelSide.getQuantity().setValue(side);
 
     // Set top offset
-    ScalarGlobalParameter tunnelTop = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Dimension - Back");
+    ScalarGlobalParameter tunnelTop = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Top Offset");
     tunnelTop.getQuantity().setValue(top);
   }
-
 
   /**
    * Set the units for all the meshing parameters
@@ -273,7 +264,7 @@ public class Car_Analysis extends StarMacro {
    * @param target
    * @param thick
    */
-  private void setMeshingUnits(Units base, Units min, Units max, Units target, Units thick){
+  private void setMeshingUnits(Units base, Units min, Units max, Units target, Units thick){}
     Simulation sim = getActiveSimulation();
 
     // Set the base mesh size units
@@ -296,6 +287,7 @@ public class Car_Analysis extends StarMacro {
     ScalarGlobalParameter prismLayerThickness = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Prism Layer Thickness");
     prismLayerThickness.getQuantity().setUnits(thick);
   }
+
   /**
    * Set the scalar values for all the meshing parameters
    * @param base
@@ -360,8 +352,8 @@ public class Car_Analysis extends StarMacro {
   }
 
  private void runTunnelRange(double back, double front, double side, double top, double lengthSpace, double frontalSpace, int maxLength, int maxFrontal){
-  for(int i = 0; i <= maxLength; i+= lengthSpace){
-    for(int j = 0; j <= maxFrontal; j+= frontalSpace){
+  for(int i = 1; i <= maxLength; i+= lengthSpace){
+    for(int j = 1; j <= maxFrontal; j+= frontalSpace){
       setTunnelOffsets(i*back, i*front, j*side, j*top);
       runSim();
     }
