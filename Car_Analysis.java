@@ -33,7 +33,6 @@ public class Car_Analysis extends StarMacro {
     // Set parameters
     setMeshingScalars(50, 1, 100, 50, 30);
 
-
     // Refinement - 1m -> 5m (1m gaps)
     runTunnelRange(1, 1, 1, 1, 1, 1, 5, 5);
     // Refinement - 5m -> 10m (2.5m gaps)
@@ -264,7 +263,7 @@ public class Car_Analysis extends StarMacro {
    * @param target
    * @param thick
    */
-  private void setMeshingUnits(Units base, Units min, Units max, Units target, Units thick){}
+  private void setMeshingUnits(Units base, Units min, Units max, Units target, Units thick){
     Simulation sim = getActiveSimulation();
 
     // Set the base mesh size units
@@ -287,7 +286,6 @@ public class Car_Analysis extends StarMacro {
     ScalarGlobalParameter prismLayerThickness = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Prism Layer Thickness");
     prismLayerThickness.getQuantity().setUnits(thick);
   }
-
   /**
    * Set the scalar values for all the meshing parameters
    * @param base
