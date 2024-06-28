@@ -18,7 +18,7 @@ public class Car_Analysis extends StarMacro {
   private void execute0() {
     Simulation sim = getActiveSimulation();
 
-    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summary.csv");
+    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Summary.csv");
     
     Units m = (Units) sim.getUnitsManager().getObject("m");
     Units mm = (Units) sim.getUnitsManager().getObject("mm");
@@ -33,9 +33,8 @@ public class Car_Analysis extends StarMacro {
     // Set parameters
     setMeshingScalars(50, 1, 100, 50, 30);
 
-    // Refinement - 1m -> 5m (1m gaps)
-    runTunnelRange(1, 1, 1, 1, 1, 1, 5, 5);
-    // Refinement - 5m -> 10m (2.5m gaps)
+    // Iterate through range
+    runTunnelRange(6, 6, 1, 1, 1, 2.5, 4, 10);
 
   }
 
@@ -349,12 +348,23 @@ public class Car_Analysis extends StarMacro {
     return new ArrayList<NamedObject>(params);
   }
 
- private void runTunnelRange(double back, double front, double side, double top, double lengthSpace, double frontalSpace, int maxLength, int maxFrontal){
-  for(int i = 1; i <= maxLength; i+= lengthSpace){
-    for(int j = 1; j <= maxFrontal; j+= frontalSpace){
-      setTunnelOffsets(i*back, i*front, j*side, j*top);
-      runSim();
+
+  private void run(double back, double front, double side, double top){
+    setTunnelOffsets(back, front, side, top);
+    runSim();
+  }
+
+  private void runTunnelRange(double back, double front, double side, double top, double lengthSpace, double frontalFactor, int maxLength, int maxFrontal){
+    if(lengthSpace < 1 || frontalFactor < 1) return;
+ 
+    for(double i = 0; i <= maxLength ; i+= lengthSpace){
+      
+      for(double j = 1; j <= maxFrontal ; j+= frontalFactor){
+        setTunnelOffsets(i+back, i+front, j*side, j*top);
+        runSim();
+
+        if (j == 1) j = 0;
+      }
     }
   }
- }
 }
