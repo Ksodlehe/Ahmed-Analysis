@@ -18,7 +18,7 @@ public class Car_Analysis extends StarMacro {
   private void execute0() {
     Simulation sim = getActiveSimulation();
 
-    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Summary.csv");
+    //out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Summary.csv");
     
     Units m = (Units) sim.getUnitsManager().getObject("m");
     Units mm = (Units) sim.getUnitsManager().getObject("mm");
@@ -34,14 +34,39 @@ public class Car_Analysis extends StarMacro {
     setMeshingScalars(50, 1, 100, 50, 30);
 
     // Iterate through range
-    runTunnelRange(6, 6, 1, 1, 1, 2.5, 4, 10);
 
+    // 1.5:1
+    //out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/1.5:1 B-F.csv");
+    //runTunnelRange(1.5, 1, 1, 1, .5, 1, 4, 5);
+    //runTunnelRange(1, 1.5, 1, 1, .5, 1, 4, 5);
+    
+    
+    // 2:1
+    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/2:1 B-F.csv");
+    //runTunnelRange(2, 1, 1, 1, .5, 1, 4, 5);
+    //runTunnelRange(1, 2, 1, 1, .5, 1, 4, 5);
+    
+    // 2.5:1
+    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/2.5:1 B-F.csv");
+    runTunnelRange(2.5, 1, 1, 1, .5, 1, 4, 5);
+    runTunnelRange(1, 2.5, 1, 1, .5, 1, 4, 5);
+
+    // 3:1
+    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/3:1 B-F.csv");
+    runTunnelRange(3, 1, 1, 1, .5, 1, 4, 5);
+    runTunnelRange(1, 3, 1, 1, .5, 1, 4, 5);
   }
 
+  /**
+   * Run a singular simulation
+   * @param comment A comment to be included
+   */
   private void runSim(String comment){
     String error = "N/A";
     try{
       Simulation sim = getActiveSimulation();
+
+      sim.println("|=====--- " + parametersToString() + "---=====|");
 
       SubtractPartsOperation subtract= 
         (SubtractPartsOperation) sim.get(MeshOperationManager.class).getObject("Subtract");
@@ -66,10 +91,13 @@ public class Car_Analysis extends StarMacro {
       writeData(error, comment);
     }
   }
-
+  /**
+   * Run a singular simulation without adding a comment
+   */
   private void runSim(){
     runSim("N/A");
   }
+
 
   /**
    * Create a file if it does not exist
@@ -129,7 +157,6 @@ public class Car_Analysis extends StarMacro {
 
     return file;
   }
-
   /**
    * Write the data obtained from the simulation to the
    * 'out' file
@@ -189,7 +216,7 @@ public class Car_Analysis extends StarMacro {
       sim.print(e.getLocalizedMessage());
     }
   }
- 
+
 
   /**
    * Set the maximum number of steps the solution can run for
@@ -204,7 +231,6 @@ public class Car_Analysis extends StarMacro {
     stepStoppingCriterion.setMaximumNumberSteps(steps);
   }
 
-  
   /**
    * Set the units for the offsets of the tunnel / block of the simulation
    * @param back back offset units
@@ -347,6 +373,22 @@ public class Car_Analysis extends StarMacro {
     
     return new ArrayList<NamedObject>(params);
   }
+  
+  
+  /**
+   * 
+   * @return A string representation of the parameters
+   */
+  private String parametersToString(){
+    String data = "";
+    for(NamedObject param : getParameters()){
+      ScalarGlobalParameter p = (ScalarGlobalParameter) param;
+      data += p.getQuantity().toString();
+      data += ", ";
+    }
+    data = data.substring(0, data.length() - 2);
+    return data;
+  }
 
 
   private void run(double back, double front, double side, double top){
@@ -354,8 +396,8 @@ public class Car_Analysis extends StarMacro {
     runSim();
   }
 
-  private void runTunnelRange(double back, double front, double side, double top, double lengthSpace, double frontalFactor, int maxLength, int maxFrontal){
-    if(lengthSpace < 1 || frontalFactor < 1) return;
+  private void runTunnelRange(double back, double front, double side, double top, double lengthSpace, double frontalFactor, double maxLength, double maxFrontal){
+    if(lengthSpace < 0 || frontalFactor < 0) return;
  
     for(double i = 0; i <= maxLength ; i+= lengthSpace){
       
@@ -363,7 +405,7 @@ public class Car_Analysis extends StarMacro {
         setTunnelOffsets(i+back, i+front, j*side, j*top);
         runSim();
 
-        if (j == 1) j = 0;
+        if (j == 1 && frontalFactor > 1) j = 0;
       }
     }
   }
