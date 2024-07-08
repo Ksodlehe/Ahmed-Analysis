@@ -2,6 +2,8 @@ import java.util.*;
 
 import java.io.*;
 
+import star.base.neo.ClientServerObject;
+import star.base.neo.ClientServerObjectGroup;
 import star.base.neo.NamedObject;
 import star.common.*;
 import star.common.graph.DataSet;
@@ -31,33 +33,36 @@ public class Car_Analysis extends StarMacro {
     setMeshingUnits(mm, mm, mm, mm, mm);
 
     // Set parameters
-    setMeshingScalars(50, 1, 100, 50, 30);
+    setMeshingScalars(5,20, 3, 100, 20, 20);
 
     // Iterate through range
 
-    // 1.5:1
-    //out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/1.5:1 B-F.csv");
-    //runTunnelRange(1.5, 1, 1, 1, .5, 1, 4, 5);
-    //runTunnelRange(1, 1.5, 1, 1, .5, 1, 4, 5);
-    
-    
-    // 2:1
-    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/2:1 B-F.csv");
-    //runTunnelRange(2, 1, 1, 1, .5, 1, 4, 5);
-    //runTunnelRange(1, 2, 1, 1, .5, 1, 4, 5);
-    
-    // 2.5:1
-    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/2.5:1 B-F.csv");
-    runTunnelRange(2.5, 1, 1, 1, .5, 1, 4, 5);
-    runTunnelRange(1, 2.5, 1, 1, .5, 1, 4, 5);
+    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Back - Front Offsets/Control.csv");
+    //run(9,4,2,3);
+    runTunnelRange(8.5, 8.5, 2, 3, .5, 1, 1.5, 1);
 
-    // 3:1
-    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/3:1 B-F.csv");
-    runTunnelRange(3, 1, 1, 1, .5, 1, 4, 5);
-    runTunnelRange(1, 3, 1, 1, .5, 1, 4, 5);
+    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Back - Front Offsets/Back Increase.csv");
+    runTunnelRange(1.5, 1, 2, 3, .5, 1, 4, 1);
+    runTunnelRange(2, 1, 2, 3, .5, 1, 4, 1);
+    runTunnelRange(2.5, 1, 2,3, .5, 1, 4, 1);
+    runTunnelRange(3, 1, 2, 3, .5, 1, 4, 1);
+    runTunnelRange(3.5, 1, 2,3, .5, 1, 4, 1);
+    runTunnelRange(4, 1, 2, 3, .5, 1, 4, 1);
+    runTunnelRange(4.5, 1,2, 3, .5, 1, 4, 1);
+    runTunnelRange(5, 1, 2, 3, .5, 1, 4, 1);
+
+    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Back - Front Offsets/Front Increase.csv");
+    runTunnelRange(1, 1.5, 2, 3, .5, 1, 4, 1);
+    runTunnelRange(1, 2, 2, 3, .5, 1, 4, 1);
+    runTunnelRange(1, 2.5, 2, 3, .5, 1, 4, 1);
+    runTunnelRange(1, 3, 1, 1, .5, 1, 4, 1);
+    runTunnelRange(1, 3.5, 1, 1, .5, 1, 4, 1);
+    runTunnelRange(1, 4, 1, 1, .5, 1, 4, 1);
+    runTunnelRange(1, 4.5, 1, 1, .5, 1, 4, 1);
+    runTunnelRange(1, 5, 1, 1, .5, 1, 4, 1);
   }
 
-  /**
+  /**Mesh Base
    * Run a singular simulation
    * @param comment A comment to be included
    */
@@ -126,6 +131,12 @@ public class Car_Analysis extends StarMacro {
         header += param.getDisplayName() + ", ";
       }
 
+      // Write the coefficient data to file
+      sim.println("|--Writing coefficients...");
+      for(DataSet report : getCoefficients()){
+        header += report.getName().replaceAll("Monitor", "") + "[" + report.getYUnits().toString() + "], ";
+      }
+
       // Get all names + units for the reports
       sim.println("|--Getting reports...");
       for(DataSet report : getReports()){
@@ -177,6 +188,13 @@ public class Car_Analysis extends StarMacro {
       }
 
       int step = sim.getSimulationIterator().getCurrentIteration();
+
+      // Write the coefficient data to file
+      sim.println("|--Writing coefficients...");
+      for(DataSet report : getCoefficients()){
+        data += report.getYValue(step - 1);
+        data += ", ";
+      }
 
       // Write the report data to file
       sim.println("|--Writing reports...");
@@ -311,6 +329,7 @@ public class Car_Analysis extends StarMacro {
     ScalarGlobalParameter prismLayerThickness = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Prism Layer Thickness");
     prismLayerThickness.getQuantity().setUnits(thick);
   }
+
   /**
    * Set the scalar values for all the meshing parameters
    * @param base
@@ -319,8 +338,12 @@ public class Car_Analysis extends StarMacro {
    * @param target
    * @param thick
    */
-  private void setMeshingScalars(double base, double min, double max, double target, double thick){
+  private void setMeshingScalars(double ahmed, double base, double min, double max, double target, double thick){
     Simulation sim = getActiveSimulation();
+
+    // Set Ahmed target size
+    ScalarGlobalParameter ahmedTarget = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Ahmed Target Size");
+    ahmedTarget.getQuantity().setValue(ahmed);
 
     // Set the base mesh size
     ScalarGlobalParameter meshBase = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Mesh Base");
@@ -343,26 +366,7 @@ public class Car_Analysis extends StarMacro {
     prismLayerThickness.getQuantity().setValue(thick);
   }
 
-  /**
-   * Obtain a list of all residual data sets present in the simulation
-   * @return List of residual data sets
-   */
-  private List<DataSet> getResiduals(){
-    Simulation sim = getActiveSimulation();
-    StarPlot residualPlot = ((StarPlot) sim.getPlotManager().getPlot("Residuals"));
 
-    return residualPlot.getDataSetCollection();
-  }
-  /**
-   * Obtain a list of all report data sets present in the simulation
-   * @return List of report data sets
-   */
-  private List<DataSet> getReports(){
-    Simulation sim = getActiveSimulation();
-    StarPlot reportPlot = ((StarPlot) sim.getPlotManager().getPlot("Reports"));
-
-    return reportPlot.getDataSetCollection();
-  }
   /**
    * Obtain a list of all parameters used
    * @return List of parameters
@@ -373,7 +377,40 @@ public class Car_Analysis extends StarMacro {
     
     return new ArrayList<NamedObject>(params);
   }
-  
+
+  /**
+   * Obtain a list of all coefficient data sets present in the simulation
+   * @return List of coefficient data sets
+   */
+  private List<DataSet> getCoefficients(){
+    Simulation sim = getActiveSimulation();
+    StarPlot reportPlot = ((StarPlot) sim.getPlotManager().getPlot("Coefficients"));
+
+    return reportPlot.getDataSetCollection();
+  }
+
+    /**
+   * Obtain a list of all report data sets present in the simulation
+   * @return List of report data sets
+   */
+  private List<DataSet> getReports(){
+    Simulation sim = getActiveSimulation();
+    StarPlot reportPlot = ((StarPlot) sim.getPlotManager().getPlot("Reports"));
+
+    return reportPlot.getDataSetCollection();
+  }
+
+  /**
+   * Obtain a list of all residual data sets present in the simulation
+   * @return List of residual data sets
+   */
+  private List<DataSet> getResiduals(){
+    Simulation sim = getActiveSimulation();
+    StarPlot residualPlot = ((StarPlot) sim.getPlotManager().getPlot("Residuals"));
+
+    return residualPlot.getDataSetCollection();
+  }
+
   
   /**
    * 
