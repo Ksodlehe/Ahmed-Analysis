@@ -10,9 +10,11 @@ import star.common.graph.DataSet;
 import star.meshing.AutoMeshOperation;
 import star.meshing.MeshOperationManager;
 import star.meshing.SubtractPartsOperation;
+import java.util.concurrent.TimeUnit;
 
 public class Car_Analysis extends StarMacro {
   private File out = null;
+  private double meshTime = 0;
 
   public void execute() {
     execute0();
@@ -20,8 +22,6 @@ public class Car_Analysis extends StarMacro {
   private void execute0() {
     Simulation sim = getActiveSimulation();
 
-    //out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Summary.csv");
-    
     Units m = (Units) sim.getUnitsManager().getObject("m");
     Units mm = (Units) sim.getUnitsManager().getObject("mm");
 
@@ -34,54 +34,39 @@ public class Car_Analysis extends StarMacro {
 
     // Set parameters
     setMeshingScalars(5,20, 3, 100, 20, 20);
+    setTunnelOffsets(9, 4, 2, 3);
 
-    // Iterate through range
-
-    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Back - Front Offsets/Control.csv");
-    //run(9,4,2,3);
-    runTunnelRange(8.5, 8.5, 2, 3, .5, 1, 1.5, 1);
-
-    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Back - Front Offsets/Back Increase.csv");
-    runTunnelRange(1.5, 1, 2, 3, .5, 1, 4, 1);
-    runTunnelRange(2, 1, 2, 3, .5, 1, 4, 1);
-    runTunnelRange(2.5, 1, 2,3, .5, 1, 4, 1);
-    runTunnelRange(3, 1, 2, 3, .5, 1, 4, 1);
-    runTunnelRange(3.5, 1, 2,3, .5, 1, 4, 1);
-    runTunnelRange(4, 1, 2, 3, .5, 1, 4, 1);
-    runTunnelRange(4.5, 1,2, 3, .5, 1, 4, 1);
-    runTunnelRange(5, 1, 2, 3, .5, 1, 4, 1);
-
-    out = outputFile("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Back - Front Offsets/Front Increase.csv");
-    runTunnelRange(1, 1.5, 2, 3, .5, 1, 4, 1);
-    runTunnelRange(1, 2, 2, 3, .5, 1, 4, 1);
-    runTunnelRange(1, 2.5, 2, 3, .5, 1, 4, 1);
-    runTunnelRange(1, 3, 1, 1, .5, 1, 4, 1);
-    runTunnelRange(1, 3.5, 1, 1, .5, 1, 4, 1);
-    runTunnelRange(1, 4, 1, 1, .5, 1, 4, 1);
-    runTunnelRange(1, 4.5, 1, 1, .5, 1, 4, 1);
-    runTunnelRange(1, 5, 1, 1, .5, 1, 4, 1);
+    // run a sim
+    runSim();
   }
 
-  /**Mesh Base
+ 
+  /**
    * Run a singular simulation
    * @param comment A comment to be included
    */
   private void runSim(String comment){
     String error = "N/A";
+    Simulation sim = getActiveSimulation();
     try{
-      Simulation sim = getActiveSimulation();
-
       sim.println("|=====--- " + parametersToString() + "---=====|");
 
+      // Create operations
       SubtractPartsOperation subtract= 
         (SubtractPartsOperation) sim.get(MeshOperationManager.class).getObject("Subtract");
       AutoMeshOperation autoMesh = 
         (AutoMeshOperation) sim.get(MeshOperationManager.class).getObject("Automated Mesh");
       Solution solution = sim.getSolution();
 
+      // Time taken to mesh part
+      double start = System.currentTimeMillis();
       subtract.execute();
       autoMesh.execute();
+      double end = System.currentTimeMillis();
 
+      meshTime = (double) (end - start) / 60000;
+
+      // Clear, initialize and run solution
       solution.clearSolution(Solution.Clear.History, Solution.Clear.Fields, Solution.Clear.LagrangianDem);
       solution.initializeSolution();
 
@@ -90,10 +75,31 @@ public class Car_Analysis extends StarMacro {
       sim.println("Running finished");
     }
     catch (Exception e){
+      // Create error message
       error = e.getMessage().replaceAll("\n", "");
     }
     finally{
+      // Write data to output file
       writeData(error, comment);
+
+      try{
+        sim.println("Next sim will start in 10 seconds...");
+        TimeUnit.SECONDS.sleep(5);
+        sim.print("Next sim will start in 5...");
+        TimeUnit.SECONDS.sleep(1);
+        sim.print("4...");
+        TimeUnit.SECONDS.sleep(1);
+        sim.print("3...");
+        TimeUnit.SECONDS.sleep(1);
+        sim.print("2...");
+        TimeUnit.SECONDS.sleep(1);
+        sim.print("1...\n");
+        TimeUnit.SECONDS.sleep(1);
+        sim.println("Starting next sim...");
+      }
+      catch(Exception e){
+        // DO NOTHING
+      }
     }
   }
   /**
@@ -143,6 +149,9 @@ public class Car_Analysis extends StarMacro {
         header += report.getName().replaceAll("Monitor", "") + "[" + report.getYUnits().toString() + "], ";
       }
       
+      // Add mesh time
+      header += "Total Meshing Time [min], ";
+
       // Add meshing data and iteration step
       header += "Cell Count, Face Count, Vertex Count, Iteration, ";
 
@@ -188,6 +197,7 @@ public class Car_Analysis extends StarMacro {
       }
 
       int step = sim.getSimulationIterator().getCurrentIteration();
+      
 
       // Write the coefficient data to file
       sim.println("|--Writing coefficients...");
@@ -202,6 +212,10 @@ public class Car_Analysis extends StarMacro {
         data += report.getYValue(step - 1);
         data += ", ";
       }
+
+      // Write meshing time
+      data += meshTime + ", ";
+      meshTime = 0;
 
       // Write meshing data
       FvRepresentation fvRep = ((FvRepresentation) sim.getRepresentationManager().getObject("Volume Mesh"));
@@ -384,9 +398,9 @@ public class Car_Analysis extends StarMacro {
    */
   private List<DataSet> getCoefficients(){
     Simulation sim = getActiveSimulation();
-    StarPlot reportPlot = ((StarPlot) sim.getPlotManager().getPlot("Coefficients"));
+    StarPlot coefPlot = ((StarPlot) sim.getPlotManager().getPlot("Coefficients"));
 
-    return reportPlot.getDataSetCollection();
+    return new ArrayList<DataSet> (coefPlot.getDataSetManager().getObjects());
   }
 
     /**
@@ -427,12 +441,32 @@ public class Car_Analysis extends StarMacro {
     return data;
   }
 
+  
+  /**
+   * A function to easily iterate through mesh settings
+   */
+  private void runMeshRange (double ahmed, double base, double target, double targetInc, double targetMax){
+    Simulation sim = getActiveSimulation();
+    for(; target <= targetMax; target += targetInc){
+      // Set Ahmed target size
+      ScalarGlobalParameter ahmedTarget = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Ahmed Target Size");
+      ahmedTarget.getQuantity().setValue(ahmed);
 
-  private void run(double back, double front, double side, double top){
-    setTunnelOffsets(back, front, side, top);
-    runSim();
+      // Set the base mesh size
+      ScalarGlobalParameter meshBase = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Mesh Base");
+      meshBase.getQuantity().setValue(base);
+
+      // Set the target mesh size
+      ScalarGlobalParameter meshTarget = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Mesh Target");
+      meshTarget.getQuantity().setValue(target);
+
+      runSim();
+    }
   }
 
+  /**
+   * A function to easily iterate through tunnel settings
+   */
   private void runTunnelRange(double back, double front, double side, double top, double lengthSpace, double frontalFactor, double maxLength, double maxFrontal){
     if(lengthSpace < 0 || frontalFactor < 0) return;
  
