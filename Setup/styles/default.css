@@ -1,0 +1,57 @@
+body                     { display: block; background-color: #F3F3F0; font-family: Arial, Helvetica, Helvetica Neue, San Francisco, Roboto, sans-serif; padding: 12px; }
+
+div.summary-elements     { margin-left: 1.0cm; }
+div.object-summary       { margin-top: 1.0cm; border-top: 1px solid #CCCCD4; }
+div.tabular-summary      { margin-top: 1.0cm; border-top: 1px solid #CCCCD4; }
+div.viewobject-image     { background-color: #FFFFFF; border: thin outset #AAAA96; }
+div.object-content       { margin-left: 1.0cm; }
+div.dependents           { margin-top: 0.5cm; font-size: 12pt; }
+div.dependent            { margin-top: 12px; margin-bottom: 6px; }
+div.dependent.manager    { font-size: larger; margin-top: 24px; }
+div.scene-image          { margin-top: 0.75cm; }
+div.report-frame         { margin-top: 0.75cm; }
+div.toc-summary          { margin-left: 0.5cm; }
+img.banner-logo          { height: 84px; }
+
+p.summary-title          { font-size: 14pt; font-weight: bold; white-space: nowrap; margin-top: 0px; }
+p.session-path           { }
+p.report-date            { }
+p.object-path            { font-size: 8pt; font-style: italic; color: #000028; white-space: nowrap; }
+p.object-name            { font-weight: bold; margin-top: 0px; margin-bottom: 12px; }
+p.dependent-name         { font-size: 10pt; font-weight: bold; }
+
+span.path-head           { color: #009999 }
+
+table.banner             { border: thin outset #AAAA96; background-color: #FFFFFF;}
+table.properties         { margin-top: 0.5cm; border: thin outset #F3F3F0; width: 600px; font-size: 9pt; }
+table.input-properties   { margin-top: 0.2cm; border: none; font-size: 8pt; }
+table.summary            { margin-top: 0.5cm; border: thin outset #F3F3F0; width: 600px; font-size: 9pt; }
+
+th.tabular.summary.header  { font-size: 10pt; font-style: bold; color: #000028; background-color: #FFFFFF; white-space: nowrap; }
+th.Result		   { font-size: 10pt; font-style: bold; color: #000028; background-color: #FFFFFF; white-space: nowrap; }
+th.Units		   { font-size: 10pt; font-style: bold; color: #000028; background-color: #FFFFFF; white-space: nowrap; }
+
+tr.banner                    { }
+tr.property                  { background-color: #FFFFFF; }
+tr.property:nth-child(even)  { background-color: #F3F3F0; }
+tr.property.read-only        { color: #666666; }
+tr.property.expert           { font-style: italic; }
+tr.units                     { background-color: #FFFFFF; }
+tr.units:nth-child(even)     { background-color: #F3F3F0; }
+tr.input-property            { }
+
+td.banner-logo            { padding: 6px; }
+td.banner-metadata        { padding: 6px; width: 100%; }
+td.property               { padding: 3px; }
+td.property.caption       { font-weight: bold; text-align: right; white-space: nowrap; width: 240px; }
+td.property.value         { }
+td.units                  { padding: 3px; }
+td.units.caption          { font-weight: bold; text-align: right; white-space: nowrap; width: 240px; }
+td.units.value            { }
+td.input-property         { padding: 3px; }
+td.input-property.caption { font-weight: bold; text-align: right; white-space: nowrap; width: 80px; }
+
+span.path-head            { font-weight: bold; }
+span.query-definition     { font-weight: normal; font-style:  italic; font-size: smaller; }
+
+object.report             { width: 800px; overflow: scroll; background-color: #FFFFFF; border: thin outset #AAAA96}
