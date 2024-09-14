@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -57,33 +56,6 @@ div.csl-indent {
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -162,7 +134,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">22/08/2024</p>
+      <p class="date">14/09/2024</p>
     </div>
   </div>
   
@@ -170,9 +142,7 @@ window.Quarto = {
   </div>
   
 
-
 </header>
-
 
 <div style="page-break-after: always;"></div>
 <section id="introduction" class="level1">
@@ -189,18 +159,15 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Visuals/Simulation%20Setup%20-%20Airflow.png" class="img-fluid figure-img"></p>
-<figcaption>Tunnel Air Flow</figcaption>
+<figcaption class="figure-caption">Tunnel Air Flow</figcaption>
 </figure>
 </div>
 <p>However, we will still cover the most important parts of the simulation set up, such as the parameters, tunnel information, and physics settings.</p>
 <section id="tunnel-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="tunnel-parameters">Tunnel Parameters</h2>
 <p>Firstly, we should describe what exactly the parameters we are utilizing are. There are two significant sub-sects of parameters: tunnel parameters, and meshing parameters. The tunnel parameters are defined as “Back Offset, Front Offset, Side Offset, Top Offset,” as is seen in the images provided.</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout="[ 84, 16 ]">
-<div class="quarto-layout-row">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 84.0%;justify-content: center;">
 <p><img src="Visuals/Simulation%20Setup_Tunnel%20Parameters%20-%20Front%20Back%20Offsets.png" class="img-fluid"></p>
 </div>
@@ -213,15 +180,12 @@ window.Quarto = {
 <section id="meshing-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="meshing-parameters">Meshing Parameters</h2>
 <p>The meshing parameters are a little more nuanced, as there are once again three categories: meshing parameters that affect the entire mesh, parameters that only affect the tunnel mesh, and parameters that only affect the Ahmed body mesh.</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p>Entire Mesh</p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Base Cell Size</li>
 <li>Min Cell Size</li>
@@ -229,21 +193,21 @@ window.Quarto = {
 </ul>
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p>Tunnel mesh</p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Target Cell Size</li>
 </ul>
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p>Ahmed Mesh</p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Ahmed Body Target Cell Size</li>
 </ul>
@@ -255,12 +219,9 @@ window.Quarto = {
 <section id="tunnel-flow-physics" class="level2">
 <h2 class="anchored" data-anchor-id="tunnel-flow-physics">Tunnel / Flow / Physics</h2>
 <p>Lastly, a few pieces of fairly important information regarding the actual simulations. Most physics / tunnel / fluid settings are left as their default values, however the most notable of these settings, or significant changes, are listed below:</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Tunnel Inlet Velocity: 40 m/s</li>
 <li>Reference Pressure: 101.325 kPa</li>
@@ -268,7 +229,7 @@ window.Quarto = {
 <li>Flow: Segregated</li>
 </ul>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Fluid: Air</li>
 <li>Fluid Density: 1.225 kg/m<sup>3</sup></li>
@@ -281,33 +242,21 @@ window.Quarto = {
 <section id="hardware" class="level2">
 <h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
 <p>Easily the largest variable for the simulation time is the specs of the hardware running the simulation. As such, I will be including my own:</p>
-<div id="fig-hardware" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-hardware-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="fig-sys_info" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-sys_info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Visuals/Simulation%20Setup_Hardware%20-%20System%20Info.png" class="img-fluid figure-img" data-ref-parent="fig-hardware">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-sys_info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) System Info
-</figcaption>
+<div id="fig-hardware" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div id="fig-sys_info" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Visuals/Simulation%20Setup_Hardware%20-%20System%20Info.png" class="img-fluid figure-img" data-ref-parent="fig-hardware"></p>
+<figcaption class="figure-caption">(a) System Info</figcaption>
 </figure>
 </div>
-<div id="fig-cpu_info" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-cpu_info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Visuals/Simulation%20Setup_Hardware%20-%20CPU%20Info.png" class="img-fluid figure-img" data-ref-parent="fig-hardware">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cpu_info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) CPU Info
-</figcaption>
+<div id="fig-cpu_info" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Visuals/Simulation%20Setup_Hardware%20-%20CPU%20Info.png" class="img-fluid figure-img" data-ref-parent="fig-hardware"></p>
+<figcaption class="figure-caption">(b) CPU Info</figcaption>
 </figure>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hardware-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: System Info
-</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;1: System Info</figcaption>
 </figure>
 </div>
 <p>It should be noted that I, idiotically, limited the number of computer processes allocated to the simulations to 6 on accident, when I should have set it to roughly 15 to utilize most of a core. However, this may have been a blessing in disguise, as this means that the results acquired will be true even on computers that <em>cant</em> handle allocating a large number of computing processes to CFD simulations. Still, a very silly mistake.</p>
@@ -320,15 +269,12 @@ Figure&nbsp;1: System Info
 <section id="parameters" class="level3">
 <h3 class="anchored" data-anchor-id="parameters">Parameters</h3>
 <p>The following parameters were provided by the Aero Club leader Raza Gillani and will serve as our benchmark parameters</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p>Meshing</p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Base Cell Size: 20 mm</li>
 <li>Min Cell Size: 3 mm</li>
@@ -338,11 +284,11 @@ Figure&nbsp;1: System Info
 </ul>
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p>Tunnel</p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Front Offset: 4 m</li>
 <li>Back Offset: 9 m</li>
@@ -365,40 +311,28 @@ Figure&nbsp;1: System Info
 <h3 class="anchored" data-anchor-id="simulation-results">Simulation Results</h3>
 <p>Despite this, the simulation gave the following results:</p>
 <div id="fig-sim_graphs" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sim_graphs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-sim_graphs" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div id="fig-residuals" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Visuals/Ahmed%20Body_Benchmark%20Simulation%20Results%20-%20Residuals%20Graph.png" class="img-fluid figure-img" data-ref-parent="fig-sim_graphs">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Residuals Graph
-</figcaption>
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-residuals" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Visuals/Ahmed%20Body_Benchmark%20Simulation%20Results%20-%20Residuals%20Graph.png" class="img-fluid figure-img" data-ref-parent="fig-sim_graphs"></p>
+<figcaption class="figure-caption">(a) Residuals Graph</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-sim_graphs" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div id="fig-coefficients" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-coefficients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Visuals/Ahmed%20Body_Benchmark%20Simulation%20Results%20-%20Coefficients%20Graph.png" class="img-fluid figure-img" data-ref-parent="fig-sim_graphs">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-coefficients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) Coefficients Graph
-</figcaption>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-coefficients" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Visuals/Ahmed%20Body_Benchmark%20Simulation%20Results%20-%20Coefficients%20Graph.png" class="img-fluid figure-img" data-ref-parent="fig-sim_graphs"></p>
+<figcaption class="figure-caption">(b) Coefficients Graph</figcaption>
 </figure>
 </div>
 </div>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sim_graphs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Simulation Graphs
-</figcaption>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Simulation Graphs</figcaption><p></p>
 </figure>
 </div>
 <p>The most notable value from this graph is the Drag Coefficient (cd A), which ended up being <strong>0.29750</strong> <span class="citation" data-cites="Campen">[<a href="#ref-Campen" role="doc-biblioref">2</a>]</span>, this coefficient is the primary value we will be focusing on for. For reference, in Ahmed et als. paper <span class="citation" data-cites="Ahmed">[<a href="#ref-Ahmed" role="doc-biblioref">1</a>]</span>, the drag coefficient was measured to be roughly</p>
@@ -415,31 +349,24 @@ Cd = 0.285
 <p>One way to adjust the cell count of our simulation is to adjust the ‘Base Cell Size’ and ‘Ahmed Body Target Cell Size’ parameters.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-base_and_ahmed" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-base_and_ahmed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Report_files/figure-html/fig-base_and_ahmed-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-base_and_ahmed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Convergence of Base and Ahmed Body Target Cell Sizes towards lower Drag Coefficient Errors
-</figcaption>
+<div id="fig-base_and_ahmed" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Report_files/figure-html/fig-base_and_ahmed-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Convergence of Base and Ahmed Body Target Cell Sizes towards lower Drag Coefficient Errors</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>From this graph two things become very apparent: firstly, larger base sizes are significantly less chaotic than smaller sizes, making them much better for the purposes of FSAE. Furthermore, these larger base sizes will also take much less time to simulate than smaller options, which is exactly what we want. Secondly, a smaller Ahmed target size consistently results in lower drag coefficient errors. This smaller Ahmed target size does result in slightly slower simulation times, however that increase in simulation time is well worth the increased accuracy.</p>
 <p>Due to these results, for all future parameter iterations we will use</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Base = 300mm</li>
 </ul>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li>Ahmed Target Size = 5mm</li>
 </ul>
@@ -452,47 +379,31 @@ Figure&nbsp;3: Convergence of Base and Ahmed Body Target Cell Sizes towards lowe
 <p>The final mesh optimization we could theoretically make is that of the tunnel mesh target size. Larger target sizes encourages star to try and make more cells large.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-target" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-target-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Report_files/figure-html/fig-target-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-target-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Apparent Lack of Correlation between Target Size and Drag Coefficient Error
-</figcaption>
+<div id="fig-target" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Report_files/figure-html/fig-target-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Apparent Lack of Correlation between Target Size and Drag Coefficient Error</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>And as we can see from this graph, there is essentially <strong>no</strong> correlation between our target cell size and the Drag Coefficient Error. But this is actually an expected behaviour since the target cell size barely affects the wake and does not affect the Ahmed Body at all, both of which being the most important parts for the drag coefficient. This means that changing the target cell size primarily affects the tunnel cells <em>outside</em> the wake, and only changes the wake cells sizes a tiny amount.</p>
 <p>However, something interesting to note is that both target sizes 125mm and 250mm reached a cd*A of 0.285 ± 0.0009 on their first runs, which are overwhelmingly accurate results, especially for simulations that only took 26 minutes. The most perplexing thing is that these two <strong>consistently</strong> get these results, meaning that the results were not just a random fluke. This indicates that something about these specific target cell sizes are optimal for the current settings, however we fail to understand <em>why</em> they work so well.</p>
-<div id="fig-target_compare" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-target_compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="fig-target_125" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-target_125-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Visuals/Ahmed%20Body_Target%20Size%20-%20Target%20125.png" class="img-fluid figure-img" data-ref-parent="fig-target_compare">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-target_125-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Target size = 125mm
-</figcaption>
+<div id="fig-target_compare" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div id="fig-target_125" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Visuals/Ahmed%20Body_Target%20Size%20-%20Target%20125.png" class="img-fluid figure-img" data-ref-parent="fig-target_compare"></p>
+<figcaption class="figure-caption">(a) Target size = 125mm</figcaption>
 </figure>
 </div>
-<div id="fig-target_300" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-target_300-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Visuals/Ahmed%20Body_Target%20Size%20-%20Target%20300.png" class="img-fluid figure-img" data-ref-parent="fig-target_compare">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-target_300-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) Target size = 300mm
-</figcaption>
+<div id="fig-target_300" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Visuals/Ahmed%20Body_Target%20Size%20-%20Target%20300.png" class="img-fluid figure-img" data-ref-parent="fig-target_compare"></p>
+<figcaption class="figure-caption">(b) Target size = 300mm</figcaption>
 </figure>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-target_compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Target Size Mesh Differences
-</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;5: Target Size Mesh Differences</figcaption>
 </figure>
 </div>
 <p>A final observation is that target cell sizes that were the faster to simulate were all directly in the middle of the tested sizes, that being 145-215mm, all taking 20-15 minutes to sim.</p>
@@ -506,14 +417,10 @@ Figure&nbsp;5: Target Size Mesh Differences
 <h3 class="anchored" data-anchor-id="front-and-back-offsets">Front and Back Offsets</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-tunnel_back_offset" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-tunnel_back_offset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Report_files/figure-html/fig-tunnel_back_offset-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tunnel_back_offset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Front and Back Tunnel Offsets and their Affects on the Drag Coefficient
-</figcaption>
+<div id="fig-tunnel_back_offset" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Report_files/figure-html/fig-tunnel_back_offset-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Front and Back Tunnel Offsets and their Affects on the Drag Coefficient</figcaption>
 </figure>
 </div>
 </div>
@@ -525,14 +432,10 @@ Figure&nbsp;6: Front and Back Tunnel Offsets and their Affects on the Drag Coeff
 <h3 class="anchored" data-anchor-id="side-and-top-offsets">Side and Top Offsets</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-tunnel_side_offset" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-tunnel_side_offset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Report_files/figure-html/fig-tunnel_side_offset-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tunnel_side_offset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coefficient
-</figcaption>
+<div id="fig-tunnel_side_offset" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Report_files/figure-html/fig-tunnel_side_offset-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coefficient</figcaption>
 </figure>
 </div>
 </div>
@@ -544,7 +447,7 @@ Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coeffic
 <h2 class="anchored" data-anchor-id="comparing-our-results">Comparing our Results</h2>
 <section id="parameters-and-results" class="level3">
 <h3 class="anchored" data-anchor-id="parameters-and-results">Parameters and Results</h3>
-<table class="caption-top table">
+<table class="table">
 <thead>
 <tr class="header">
 <th>Parameter</th>
@@ -634,7 +537,7 @@ Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coeffic
 <section id="relative-parameters" class="level3">
 <h3 class="anchored" data-anchor-id="relative-parameters">Relative Parameters</h3>
 <p>Something important to note is that its possible the settings used for the Ahmed Body work better relatively than absolutely - ie.) since the Ahmed Body model is much smaller than an FSAE car model, the offsets and cell sizes might not have the same effect. As such, below are the calculated relative parameter values.</p>
-<table class="caption-top table">
+<table class="table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Dimensions</th>
@@ -660,7 +563,7 @@ Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coeffic
 </tr>
 </tbody>
 </table>
-<table class="caption-top table">
+<table class="table">
 <thead>
 <tr class="header">
 <th>Parameter</th>
@@ -721,114 +624,90 @@ Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coeffic
 <h3 class="anchored" data-anchor-id="visuals">Visuals</h3>
 <section id="mesh-1" class="level4">
 <h4 class="anchored" data-anchor-id="mesh-1">Mesh:</h4>
-<div id="fig-tunnel_mesh" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-tunnel_mesh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="fig-bench" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-bench-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Visuals/Ahmed%20Body_Benchmark%20Mesh%20Scene%201.png" class="img-fluid figure-img" data-ref-parent="fig-tunnel_mesh">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bench-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Benchmark Tunnel Mesh
-</figcaption>
+<div id="fig-tunnel_mesh" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div id="fig-bench" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Visuals/Ahmed%20Body_Benchmark%20Mesh%20Scene%201.png" class="img-fluid figure-img" data-ref-parent="fig-tunnel_mesh"></p>
+<figcaption class="figure-caption">(a) Benchmark Tunnel Mesh</figcaption>
 </figure>
 </div>
-<div id="fig-refined" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-refined-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Visuals/Ahmed%20Body_Comparison%20-%20Refined%20Mesh%20Scene%201.png" class="img-fluid figure-img" data-ref-parent="fig-tunnel_mesh">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-refined-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) Refined Tunnel Mesh
-</figcaption>
+<div id="fig-refined" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Visuals/Ahmed%20Body_Comparison%20-%20Refined%20Mesh%20Scene%201.png" class="img-fluid figure-img" data-ref-parent="fig-tunnel_mesh"></p>
+<figcaption class="figure-caption">(b) Refined Tunnel Mesh</figcaption>
 </figure>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tunnel_mesh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Tunnel meshing differences
-</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;8: Tunnel meshing differences</figcaption>
 </figure>
 </div>
 <div id="fig-body_mesh" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-body_mesh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Visuals/Ahmed%20Body_Benchmark%20Mesh%20Scene%202.png" class="img-fluid figure-img"></p>
-<figcaption>Benchmark Ahmed Body Mesh</figcaption>
+<figcaption class="figure-caption">Benchmark Ahmed Body Mesh</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Visuals/Ahmed%20Body_Comparison%20-%20Refined%20Mesh%20Scene%202.png" class="img-fluid figure-img"></p>
-<figcaption>Refined Ahmed Body Mesh</figcaption>
+<figcaption class="figure-caption">Refined Ahmed Body Mesh</figcaption>
 </figure>
 </div>
 </div>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-body_mesh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Ahmed body meshing differences
-</figcaption>
+<p></p><figcaption class="figure-caption">Figure&nbsp;9: Ahmed body meshing differences</figcaption><p></p>
 </figure>
 </div>
 </section>
 <section id="scalar" class="level4">
 <h4 class="anchored" data-anchor-id="scalar">Scalar:</h4>
-<div id="fig-tunnel_scalar" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-tunnel_scalar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="fig-tunnel_scalar" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Visuals/Ahmed%20Body_Comparison%20-%20Benchmark%20Scalar%20Scene%201.png" class="img-fluid figure-img"></p>
-<figcaption>Benchmark Tunnel Scalar</figcaption>
+<figcaption class="figure-caption">Benchmark Tunnel Scalar</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Visuals/Ahmed%20Body_Comparison%20-%20Refined%20Scalar%20Scene%201.png" class="img-fluid figure-img"></p>
-<figcaption>Refined Tunnel Scalar</figcaption>
+<figcaption class="figure-caption">Refined Tunnel Scalar</figcaption>
 </figure>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tunnel_scalar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Tunnel scalar differences
-</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;10: Tunnel scalar differences</figcaption>
 </figure>
 </div>
 <div id="fig-body_scalar" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-body_scalar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Visuals/Ahmed%20Body_Comparison%20-%20Benchmark%20Scalar%20Scene%202.png" class="img-fluid figure-img"></p>
-<figcaption>Benchmark Ahmed Body Scalar</figcaption>
+<figcaption class="figure-caption">Benchmark Ahmed Body Scalar</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Visuals/Ahmed%20Body_Comparison%20-%20Refined%20Scalar%20Scene%202.png" class="img-fluid figure-img"></p>
-<figcaption>Refined Ahmed Body Scalar</figcaption>
+<figcaption class="figure-caption">Refined Ahmed Body Scalar</figcaption>
 </figure>
 </div>
 </div>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-body_scalar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Ahmed body scalar differences
-</figcaption>
+<p></p><figcaption class="figure-caption">Figure&nbsp;11: Ahmed body scalar differences</figcaption><p></p>
 </figure>
 </div>
-<p>It is important that <a href="#fig-tunnel_scalar" class="quarto-xref">Figure&nbsp;10</a> contains a major difference, in that because the benchmark shows how the air is behaving way farther behind the Ahmed Body. As such, if you are interested in those kinds of results - in that you wish to analyze the airflow multiple meters behind your body - we recommend using a longer back offset than we used.</p>
+<p>It is important that <a href="#fig-tunnel_scalar">Figure&nbsp;10</a> contains a major difference, in that because the benchmark shows how the air is behaving way farther behind the Ahmed Body. As such, if you are interested in those kinds of results - in that you wish to analyze the airflow multiple meters behind your body - we recommend using a longer back offset than we used.</p>
 </section>
 </section>
 </section>
@@ -842,7 +721,7 @@ Figure&nbsp;11: Ahmed body scalar differences
 <section id="test-1" class="level3">
 <h3 class="anchored" data-anchor-id="test-1">Test 1</h3>
 <p>It should be noted that</p>
-<table class="caption-top table">
+<table class="table">
 <colgroup>
 <col style="width: 40%">
 <col style="width: 25%">
@@ -915,7 +794,7 @@ Figure&nbsp;11: Ahmed body scalar differences
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
 <div id="ref-Ahmed" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">Ahmed, S. and Ramm, G. and Faltin, G., <span>“Some Salient Features of the Time-Averaged Ground Vehicle Wake,”</span> <em>SAE Technical Paper 840300</em>, 1984. <a href="https://doi.org/10.4271/840300">https://doi.org/10.4271/840300</a></div>
 </div>
@@ -1003,27 +882,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1033,17 +895,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1055,130 +908,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
+      return note.innerHTML;
     });
   }
       let selectedAnnoteEl;
@@ -1222,7 +952,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1248,32 +977,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1334,7 +1037,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-
 
 
 
