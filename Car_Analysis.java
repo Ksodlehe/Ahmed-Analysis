@@ -2,14 +2,10 @@ import java.util.*;
 
 import java.io.*;
 
-import star.base.neo.ClientServerObject;
-import star.base.neo.ClientServerObjectGroup;
 import star.base.neo.NamedObject;
 import star.common.*;
 import star.common.graph.DataSet;
-import star.meshing.AutoMeshOperation;
 import star.meshing.MeshOperationManager;
-import star.meshing.SubtractPartsOperation;
 import java.util.concurrent.TimeUnit;
 
 public class Car_Analysis extends StarMacro {
@@ -30,14 +26,27 @@ public class Car_Analysis extends StarMacro {
 
     // Set units
     setTunnelUnits(m, m, m, m);
-    setMeshingUnits(mm, mm, mm, mm, mm);
+    setMeshingUnits(mm, mm, mm, mm, mm, mm);
 
     // Set parameters
-    setMeshingScalars(5,20, 3, 100, 20, 20);
-    setTunnelOffsets(9, 4, 2, 3);
 
     // run a sim
-    runSim();
+    out = createOutputFile("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/FSAE Cars/Mark 5.csv");
+    //setTunnelOffsets(20, 8, 4, 7);
+    //setMeshingScalars(5, 100, 1, 150, 100, 20);
+    //runSim("Benchmark Simulation - Very Fine");
+
+    setTunnelOffsets(3.5, 4, 2, 2);
+    setMeshingScalars(10, 1000, 3, 1000, 100, 20);
+    runSim("Absolute - Refined Ahmed Offsets");
+
+    setTunnelOffsets(20, 8, 4, 7);
+    setMeshingScalars(5, 300, 3, 350, 125, 20);
+    runSim("Absolute - Refined Ahmed Meshing");
+
+    setTunnelOffsets(3.5, 4, 2, 2);
+    setMeshingScalars(5, 300, 3, 350, 125, 20);
+    runSim("Absolute - Refined Ahmed Settings");
   }
 
  
@@ -49,21 +58,17 @@ public class Car_Analysis extends StarMacro {
     String error = "N/A";
     Simulation sim = getActiveSimulation();
     try{
-      sim.println("|=====--- " + parametersToString() + "---=====|");
+      sim.println("\n----------------------------------------\nSimulation Starting!");
+      sim.println("Parameters: " + parametersToString());
+      sim.println("----------------------------------------\n");
 
       // Create operations
-      SubtractPartsOperation subtract= 
-        (SubtractPartsOperation) sim.get(MeshOperationManager.class).getObject("Subtract");
-      AutoMeshOperation autoMesh = 
-        (AutoMeshOperation) sim.get(MeshOperationManager.class).getObject("Automated Mesh");
       Solution solution = sim.getSolution();
 
       // Time taken to mesh part
       double start = System.currentTimeMillis();
-      subtract.execute();
-      autoMesh.execute();
+      sim.get(MeshOperationManager.class).executeAll();
       double end = System.currentTimeMillis();
-
       meshTime = (double) (end - start) / 60000;
 
       // Clear, initialize and run solution
@@ -114,7 +119,7 @@ public class Car_Analysis extends StarMacro {
    * Create a file if it does not exist
    * @return The created file
    */
-  private File outputFile(String path){
+  private File createOutputFile(String path){
     File file = new File(path);
 
     if(file.exists())
@@ -285,7 +290,11 @@ public class Car_Analysis extends StarMacro {
     ScalarGlobalParameter tunnelTop = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Top Offset");
     tunnelTop.getQuantity().setUnits(top);
   }
-  /**
+  /**for(double i = 0; i <= 9 ; i+= 0.5){
+            for(double j = 0; j <= 9; j+= 0.5){
+                System.out.printf("Back: %.1f, Front: %.1f\n",i,j);
+            }
+        }
    * Set the offsets for the tunnel / block of the simulation
    * @param back back offset
    * @param front front offset
@@ -320,8 +329,12 @@ public class Car_Analysis extends StarMacro {
    * @param target
    * @param thick
    */
-  private void setMeshingUnits(Units base, Units min, Units max, Units target, Units thick){
+  private void setMeshingUnits(Units body, Units base, Units min, Units max, Units target, Units thick){
     Simulation sim = getActiveSimulation();
+
+    // Set the body target size units
+    ScalarGlobalParameter bodyTarget = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Ahmed Target Size");
+    bodyTarget.getQuantity().setUnits(body);
 
     // Set the base mesh size units
     ScalarGlobalParameter meshBase = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Mesh Base");
@@ -352,12 +365,12 @@ public class Car_Analysis extends StarMacro {
    * @param target
    * @param thick
    */
-  private void setMeshingScalars(double ahmed, double base, double min, double max, double target, double thick){
+  private void setMeshingScalars(double bodyTgt, double base, double min, double max, double target, double thick){
     Simulation sim = getActiveSimulation();
 
     // Set Ahmed target size
-    ScalarGlobalParameter ahmedTarget = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Ahmed Target Size");
-    ahmedTarget.getQuantity().setValue(ahmed);
+    ScalarGlobalParameter bodyTarget = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Ahmed Target Size");
+    bodyTarget.getQuantity().setValue(bodyTgt);
 
     // Set the base mesh size
     ScalarGlobalParameter meshBase = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Mesh Base");
@@ -445,12 +458,12 @@ public class Car_Analysis extends StarMacro {
   /**
    * A function to easily iterate through mesh settings
    */
-  private void runMeshRange (double ahmed, double base, double target, double targetInc, double targetMax){
+  private void runMeshRange (double body, double base, double target, double targetInc, double targetMax){
     Simulation sim = getActiveSimulation();
     for(; target <= targetMax; target += targetInc){
       // Set Ahmed target size
-      ScalarGlobalParameter ahmedTarget = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Ahmed Target Size");
-      ahmedTarget.getQuantity().setValue(ahmed);
+      ScalarGlobalParameter bodyTarget = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Ahmed Target Size");
+      bodyTarget.getQuantity().setValue(body);
 
       // Set the base mesh size
       ScalarGlobalParameter meshBase = (ScalarGlobalParameter) sim.get(GlobalParameterManager.class).getObject("Mesh Base");
