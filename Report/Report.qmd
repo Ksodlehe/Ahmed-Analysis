@@ -212,19 +212,6 @@ $$ meaning that the drag coefficient in our benchmark is approximately 95.7% of 
 #| echo: false
 
 ## Base 300
-<<<<<<< HEAD:Report.qmd
-Base300 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 300.csv")
-## Base 200
-Base200 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 200.csv")
-## Base 100
-Base100 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 100.csv")
-## Base 50
-Base50 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 50.csv")
-## Base 40
-Base40 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 40.csv")
-## Base 30
-Base30 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 30.csv")
-=======
 Base300 <- ReadDataClean("../Summaries/Ahmed Body/Meshing/Base 300.csv")
 ## Base 200
 Base200 <- ReadDataClean("../Summaries/Ahmed Body/Meshing/Base 200.csv")
@@ -236,7 +223,6 @@ Base50 <- ReadDataClean("../Summaries/Ahmed Body/Meshing/Base 50.csv")
 Base40 <- ReadDataClean("../Summaries/Ahmed Body/Meshing/Base 40.csv")
 ## Base 30
 Base30 <- ReadDataClean("../Summaries/Ahmed Body/Meshing/Base 30.csv")
->>>>>>> 42884137175e13ce4b0f8d5719bff4f70a023f7a:Report/Report.qmd
 
 BaseData <- rbind(Base300, Base200, Base100, Base50, Base40, Base30)
 ```
@@ -310,11 +296,7 @@ The final mesh optimization we could theoretically make is that of the tunnel me
 #| fig-width: 7
 #| fig-cap: "Apparent Lack of Correlation between Target Size and Drag Coefficient Error"
 
-<<<<<<< HEAD:Report.qmd
-TargetCSV <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Optimal Target Cell Size.csv")
-=======
 TargetCSV <- ReadDataClean("../Summaries/Ahmed Body/Meshing/Optimal Target Cell Size.csv")
->>>>>>> 42884137175e13ce4b0f8d5719bff4f70a023f7a:Report/Report.qmd
 Error <- 100*(TargetCSV$cd.A.../0.285 - 1)
 
 Target <- as.numeric(gsub("mm|( )","",trimws(TargetCSV$Mesh.Target)))
@@ -361,12 +343,8 @@ We will be taking a single liberty when simulating tunnel parameters, in that we
 #| echo: false
 #| fig-width: 7
 #| fig-cap: "Front and Back Tunnel Offsets and their Affects on the Drag Coefficient"
-    
-<<<<<<< HEAD:Report.qmd
-Offset <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Tunnel/Back - Front.csv")
-=======
+
 Offset <- ReadDataClean("../Summaries/Ahmed Body/Tunnel/Back - Front.csv")
->>>>>>> 42884137175e13ce4b0f8d5719bff4f70a023f7a:Report/Report.qmd
     
 Error <- 100*(Offset$cd.A.../0.285 - 1)
 FrontOff <- paste0("Front Offset = ", Offset$Front.Offset)
@@ -400,13 +378,9 @@ Something else to mention is that the sim time for the above graphs was \~40-50 
 #| echo: false
 #| fig-width: 7
 #| fig-cap: "Side and Top Tunnel Offsets and their Affects on the Drag Coefficient"
-    
-<<<<<<< HEAD:Report.qmd
-Offset <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Tunnel/Side - Top.csv")
-=======
+
 Offset <- ReadDataClean("../Summaries/Ahmed Body/Tunnel/Side - Top.csv")
->>>>>>> 42884137175e13ce4b0f8d5719bff4f70a023f7a:Report/Report.qmd
-    
+
 Error <- 100*(Offset$cd.A.../0.285 - 1)
 SideOff <- paste0("Side Offset = ", Offset$Side.Offset)
 TopOff <- as.numeric(gsub("m|( )","",trimws(Offset$Top.Offset)))
