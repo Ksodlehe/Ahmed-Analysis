@@ -9,9 +9,6 @@ author-meta: "Ksodlehe"
 author: "Jordyn C."
 
 format:
-  html:
-    toc: true
-    toc-depth: 3
   pdf:
     toc: true
     toc-depth: 3
@@ -140,9 +137,11 @@ Lastly, a few pieces of fairly important information regarding the actual simula
 </div>
 :::
 
+Furthermore, it should be noted that all simulations ran on 6 'processes,' inside of Star CCM+ (I have no idea what that means, however).
+
 ## Hardware
 
-Easily the largest variable for the simulation time is the specs of the hardware running the simulation. As such, I will be including my own:
+Although hardware *should* be the least of our worries when it comes to simulations (ie. all results should be true relative to the pc specs) it is still important that I include my own pc specs for the sake of documentation.
 
 ::: {#fig-hardware}
 ![System Info](Visuals/Simulation%20Setup_Hardware%20-%20System%20Info.png){#fig-sys_info}
@@ -152,40 +151,30 @@ Easily the largest variable for the simulation time is the specs of the hardware
 System Info
 :::
 
-It should be noted that I, idiotically, limited the number of computer processes allocated to the simulations to 6 on accident, when I should have set it to roughly 15 to utilize most of a core. However, this may have been a blessing in disguise, as this means that the results acquired will be true even on computers that *cant* handle allocating a large number of computing processes to CFD simulations. Still, a very silly mistake.
-
 # Ahmed Body
 
 ## Benchmark Simulation
 
 ### Parameters
 
-The following parameters were provided by the Aero Club leader Raza Gillani and will serve as our benchmark parameters
+The following parameters were provided to me by my Aero subteam leader, Raza Gillani, and will serve as our benchmark parameters
 
-::: {layout-ncol="2"}
-Meshing
-
-<div>
-
--   Base Cell Size: 20 mm
--   Min Cell Size: 3 mm
--   Max Cell Size: 150 mm
--   Target Cell Size: 20 mm
--   Ahmed Body Target Cell Size: 5 mm
-
-</div>
-
-Tunnel
-
-<div>
-
--   Front Offset: 4 m
--   Back Offset: 9 m
--   Side Offset: 2 m
--   Top Offset: 3 m
-
-</div>
-:::
++:------------:+---------------------------------------+
+| Meshing      | -   Base Cell Size: 20 mm             |
+|              |                                       |
+|              | -   Min Cell Size: 3 mm               |
+|              |                                       |
+|              | -   Max Cell Size: 150 mm             |
+|              |                                       |
+|              | -   Target Cell Size: 20 mm           |
+|              |                                       |
+|              | -   Ahmed Body Target Cell Size: 5 mm |
++--------------+---------------------------------------+
+| Tunnel       | -   Front Offset: 4 m                 |
+|              | -   Back Offset: 9 m                  |
+|              | -   Side Offset: 2 m                  |
+|              | -   Top Offset: 3 m                   |
++--------------+---------------------------------------+
 
 ### Mesh
 
@@ -223,24 +212,26 @@ $$ meaning that the drag coefficient in our benchmark is approximately 95.7% of 
 #| echo: false
 
 ## Base 300
-Base300 <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 300.csv")
+Base300 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 300.csv")
 ## Base 200
-Base200 <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 200.csv")
+Base200 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 200.csv")
 ## Base 100
-Base100 <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 100.csv")
+Base100 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 100.csv")
 ## Base 50
-Base50 <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 50.csv")
+Base50 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 50.csv")
 ## Base 40
-Base40 <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 40.csv")
+Base40 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 40.csv")
 ## Base 30
-Base30 <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 30.csv")
+Base30 <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Base 30.csv")
 
 BaseData <- rbind(Base300, Base200, Base100, Base50, Base40, Base30)
 ```
 
-Optimizing the meshing of the simulation is the most significant change we can make - as more cells results in slower simulation times, but also theoretically more accurate results. Therefore, to get an accurate display of data we need to simulate a wide range of cell counts.
+Optimizing the meshing of the simulation is the most significant change we can make - as more cells results in slower simulation times, but also theoretically more 'accurate'$^\ast$ results. Therefore, to get an accurate display of data we need to simulate a wide range of cell counts.
 
-### Optimal base and ahmed body cell sizes
+$^\ast$it should be noted that 'accuracy' is a misnomer here. I am simply referring to how close the results are compared to those in Ahmed et als. paper @Ahmed
+
+### Optimal base and Ahmed Body cell sizes
 
 One way to adjust the cell count of our simulation is to adjust the 'Base Cell Size' and 'Ahmed Body Target Cell Size' parameters.
 
@@ -305,7 +296,7 @@ The final mesh optimization we could theoretically make is that of the tunnel me
 #| fig-width: 7
 #| fig-cap: "Apparent Lack of Correlation between Target Size and Drag Coefficient Error"
 
-TargetCSV <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Optimal Target Cell Size.csv")
+TargetCSV <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Optimal Target Cell Size.csv")
 Error <- 100*(TargetCSV$cd.A.../0.285 - 1)
 
 Target <- as.numeric(gsub("mm|( )","",trimws(TargetCSV$Mesh.Target)))
@@ -315,7 +306,7 @@ df <- data.frame(Error, Target)
 ggplot(df, aes(x = Target, y = Error)) +
   geom_line() +
   labs(y = "Drag Coefficient Error (%)",
-       x = "Front Offset (m)",
+       x = "Target Cell Size (mm)",
        subtitle = "Ahmed-Analysis/Summaries/Ahmed Body/Meshing/Optimal Target Cell Size.csv") +
   theme(plot.subtitle = element_text(size = 8.5,
                                      hjust = 1,
@@ -353,7 +344,7 @@ We will be taking a single liberty when simulating tunnel parameters, in that we
 #| fig-width: 7
 #| fig-cap: "Front and Back Tunnel Offsets and their Affects on the Drag Coefficient"
     
-Offset <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Tunnel/Back - Front.csv")
+Offset <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Tunnel/Back - Front.csv")
     
 Error <- 100*(Offset$cd.A.../0.285 - 1)
 FrontOff <- paste0("Front Offset = ", Offset$Front.Offset)
@@ -388,7 +379,7 @@ Something else to mention is that the sim time for the above graphs was \~40-50 
 #| fig-width: 7
 #| fig-cap: "Side and Top Tunnel Offsets and their Affects on the Drag Coefficient"
     
-Offset <- ReadDataClean("/home/ksodlehe/Programming/Star/Ahmed-Analysis/Summaries/Ahmed Body/Tunnel/Side - Top.csv")
+Offset <- ReadDataClean("/home/ksodlehe/Programming/git/Ksodlehe/Ahmed-Analysis/Summaries/Ahmed Body/Tunnel/Side - Top.csv")
     
 Error <- 100*(Offset$cd.A.../0.285 - 1)
 SideOff <- paste0("Side Offset = ", Offset$Side.Offset)
@@ -436,28 +427,46 @@ The setting that resulted in the lowest drag coefficient error was the ones used
 | Lift Coefficient            |     0.38623      |    0.35885     |
 | Drag Coefficient Error      |     95.798%      |    99.958%     |
 
+: Ahmed Parameters {#tbl-ahmed-params-abs}
+
+These results are absolutely astonishing. We obtained a Drag coefficient error that is 99.958% the value in Ahmed et als. paper @Ahmed, 4% better than our benchmark, and it took us 10x less cells and 10x less time using these refined values.
+
 ### Relative Parameters
 
 Something important to note is that its possible the settings used for the Ahmed Body work better relatively than absolutely - ie.) since the Ahmed Body model is much smaller than an FSAE car model, the offsets and cell sizes might not have the same effect. As such, below are the calculated relative parameter values.
 
-| Dimensions                       | Ahmed Body Dimensions |
-|:---------------------------------|:---------------------:|
-| Length (m)                       |         1.044         |
-| Width (m)                        |         0.389         |
-| Height (m)                       |         0.288         |
-| Bounding Box Surface Area (m\^2) |        1637640        |
+| Dimensions          | Ahmed Body Dimensions |
+|:--------------------|:---------------------:|
+| Length (m)          |         1.044         |
+| Width (m)           |         0.389         |
+| Height (m)          |         0.288         |
+| Frontal Area (m\^2) |           ?           |
 
-| Parameter                   |  Equation   | Refined Relative Values |
-|-----------------------------|:-----------:|:-----------------------:|
-| Front Offset                |   4.0 / l   |         383.14%         |
-| Back Offset                 |   3.5 / l   |         335.25%         |
-| Side Offset                 | 2 / (w / 2) |         257.07%         |
-| Top Offset                  |    3 / h    |         1041.6%         |
-| Base Cell Size              | 300\^2 / SA |         5.4957%         |
-| Min Cell Size               |  3\^2 / SA  |        0.00055%         |
-| Max Cell Size               | 350\^2 / SA |         7.4803%         |
-| Target Cell Size            | 125\^2 / SA |        0.95411%         |
-| Ahmed Body Target Cell Size |  5\^2 / SA  |        0.00152%         |
+: Dimensions of Ahmed Body
+
++-----------------------------+--------------------------------------+-------------------------+
+| Parameter                   | Equation                             | Refined Relative Values |
++=============================+:====================================:+:=======================:+
+| Front Offset                | $\frac{4.0}{\text{Length}}$          | 383.14%                 |
++-----------------------------+--------------------------------------+-------------------------+
+| Back Offset                 | $\frac{3.5}{\text{Length}}$          | 335.25%                 |
++-----------------------------+--------------------------------------+-------------------------+
+| Side Offset                 | $\frac{2}{(0.5\cdot \text{Width})}$  | 257.07%                 |
++-----------------------------+--------------------------------------+-------------------------+
+| Top Offset                  | $\frac{3}{\text{Height}}$            | 1041.6%                 |
++-----------------------------+--------------------------------------+-------------------------+
+| Base Cell Size              | $\frac{(300)^2}{\text{Front. Area}}$ | ?                       |
++-----------------------------+--------------------------------------+-------------------------+
+| Min Cell Size               | $\frac{(3)^2}{\text{Front. Area}}$   | ?                       |
++-----------------------------+--------------------------------------+-------------------------+
+| Max Cell Size               | $\frac{(350)^2}{\text{Front. Area}}$ | ?                       |
++-----------------------------+--------------------------------------+-------------------------+
+| Target Cell Size            | $\frac{(125)^2}{\text{Front. Area}}$ | ?                       |
++-----------------------------+--------------------------------------+-------------------------+
+| Ahmed Body Target Cell Size | $\frac{(5)^2}{\text{Front. Area}}$   | ?                       |
++-----------------------------+--------------------------------------+-------------------------+
+
+: Ahmed Parameters (Relative) {#tbl-ahmed-params-rel}
 
 ### Visuals
 
@@ -503,25 +512,33 @@ It is important that @fig-tunnel_scalar contains a major difference, in that bec
 
 ## Applying Our Results to FSAE
 
-The purpose of all of our analysis on the Ahmed Body was to hopefully improve the CFD times for FSAE cars while retaining (or improving) the accuracy via the drag coefficient. Therefore to see if we were successful in our endeavor we will do two simulations: one with the benchmark parameters, and one with the most efficient parameters we found. If the parameters we found prove to not be as effective as the benchmark parameters, we will do a second test where we change the parameter values from absolute to relative. The reasoning for this is that the size of Ahmed Body is different than that of an FSAE car, and thus would show different properties for the same parameters.
-
-One small issue with the following tests is that our club has never been able to acquire cd data off of an actual car, so there is no real way to benchmark results. As such, we have decided to simply CFD publicly available FSAE car models, and compare the results afterwards. The goal is to acquire cd results that are essentially equivalent across the benchmark and refined values, as we have no way of knowing which is more accurate, and simply wish for an improved cfd time.
+The purpose of all of our analysis on the Ahmed Body was to hopefully improve the CFD times for FSAE cars while retaining (or improving) the accuracy via the drag coefficient. Therefore to see if we were successful in our endeavor we will do two simulations: one with the benchmark parameters, and one with the most efficient parameters we found. If the parameters we found prove to not be as effective as the benchmark parameters, we will do a second test where we change the parameter values from absolute to relative. The reasoning for this is that the size of Ahmed Body is different than that of an FSAE car, and thus would show different properties for the same parameters, and hopefully using the relative values found in @tbl-ahmed-params-rel.
 
 ### Test 1
 
-It should be noted that
+Below is the comparison for the values used in the test
 
++-----------------------------+------------------+-------------------------+
 | Parameter                   | Benchmark Values | Absolute Refined Values |
-|-----------------------------|:----------------:|:-----------------------:|
-| Front Offset                |       4 m        |           4 m           |
-| Back Offset                 |       9 m        |          3.5 m          |
-| Side Offset                 |       2 m        |           2 m           |
-| Top Offset                  |       3 m        |           3 m           |
-| Base Cell Size              |      20 mm       |         300 mm          |
-| Min Cell Size               |       3 mm       |          3 mm           |
-| Max Cell Size               |      100 mm      |         350 mm          |
-| Target Cell Size            |      20 mm       |         125 mm          |
-| Ahmed Body Target Cell Size |       5 mm       |          5 mm           |
++=============================+:================:+:=======================:+
+| Front Offset                | 4 m              | 4 m                     |
++-----------------------------+------------------+-------------------------+
+| Back Offset                 | 9 m              | 3.5 m                   |
++-----------------------------+------------------+-------------------------+
+| Side Offset                 | 2 m              | 2 m                     |
++-----------------------------+------------------+-------------------------+
+| Top Offset                  | 3 m              | 3 m                     |
++-----------------------------+------------------+-------------------------+
+| Base Cell Size              | 20 mm            | 300 mm                  |
++-----------------------------+------------------+-------------------------+
+| Min Cell Size               | 3 mm             | 3 mm                    |
++-----------------------------+------------------+-------------------------+
+| Max Cell Size               | 100 mm           | 350 mm                  |
++-----------------------------+------------------+-------------------------+
+| Target Cell Size            | 20 mm            | 125 mm                  |
++-----------------------------+------------------+-------------------------+
+| Ahmed Body Target Cell Size | 5 mm             | 5 mm                    |
++-----------------------------+------------------+-------------------------+
 
 ### Test 2
 

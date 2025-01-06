@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ksodlehe">
+<meta name="dcterms.date" content="2025-06-01">
 
 <title>Optimizing Aerodynamic CFD Settings for FSAE</title>
 <style>
@@ -113,7 +114,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#optimizing-meshing" id="toc-optimizing-meshing" class="nav-link" data-scroll-target="#optimizing-meshing">Optimizing Meshing</a>
   <ul class="collapse">
-  <li><a href="#optimal-base-and-ahmed-body-cell-sizes" id="toc-optimal-base-and-ahmed-body-cell-sizes" class="nav-link" data-scroll-target="#optimal-base-and-ahmed-body-cell-sizes">Optimal base and ahmed body cell sizes</a></li>
+  <li><a href="#optimal-base-and-ahmed-body-cell-sizes" id="toc-optimal-base-and-ahmed-body-cell-sizes" class="nav-link" data-scroll-target="#optimal-base-and-ahmed-body-cell-sizes">Optimal base and Ahmed Body cell sizes</a></li>
   <li><a href="#optimal-target-cell-size" id="toc-optimal-target-cell-size" class="nav-link" data-scroll-target="#optimal-target-cell-size">Optimal target cell size</a></li>
   </ul></li>
   <li><a href="#optimizing-tunnel-offsets" id="toc-optimizing-tunnel-offsets" class="nav-link" data-scroll-target="#optimizing-tunnel-offsets">Optimizing Tunnel Offsets</a>
@@ -162,7 +163,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">22/08/2024</p>
+      <p class="date">06/01/2025</p>
     </div>
   </div>
   
@@ -277,10 +278,11 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>Furthermore, it should be noted that all simulations ran on 6 ‘processes,’ inside of Star CCM+ (I have no idea what that means, however).</p>
 </section>
 <section id="hardware" class="level2">
 <h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
-<p>Easily the largest variable for the simulation time is the specs of the hardware running the simulation. As such, I will be including my own:</p>
+<p>Although hardware <em>should</em> be the least of our worries when it comes to simulations (ie. all results should be true relative to the pc specs) it is still important that I include my own pc specs for the sake of documentation.</p>
 <div id="fig-hardware" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hardware-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -310,7 +312,6 @@ Figure&nbsp;1: System Info
 </figcaption>
 </figure>
 </div>
-<p>It should be noted that I, idiotically, limited the number of computer processes allocated to the simulations to 6 on accident, when I should have set it to roughly 15 to utilize most of a core. However, this may have been a blessing in disguise, as this means that the results acquired will be true even on computers that <em>cant</em> handle allocating a large number of computing processes to CFD simulations. Still, a very silly mistake.</p>
 </section>
 </section>
 <section id="ahmed-body" class="level1">
@@ -319,39 +320,34 @@ Figure&nbsp;1: System Info
 <h2 class="anchored" data-anchor-id="benchmark-simulation">Benchmark Simulation</h2>
 <section id="parameters" class="level3">
 <h3 class="anchored" data-anchor-id="parameters">Parameters</h3>
-<p>The following parameters were provided by the Aero Club leader Raza Gillani and will serve as our benchmark parameters</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>Meshing</p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<ul>
-<li>Base Cell Size: 20 mm</li>
-<li>Min Cell Size: 3 mm</li>
-<li>Max Cell Size: 150 mm</li>
-<li>Target Cell Size: 20 mm</li>
-<li>Ahmed Body Target Cell Size: 5 mm</li>
-</ul>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>Tunnel</p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<ul>
+<p>The following parameters were provided to me by my Aero subteam leader, Raza Gillani, and will serve as our benchmark parameters</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 55%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Meshing</td>
+<td><ul>
+<li><p>Base Cell Size: 20 mm</p></li>
+<li><p>Min Cell Size: 3 mm</p></li>
+<li><p>Max Cell Size: 150 mm</p></li>
+<li><p>Target Cell Size: 20 mm</p></li>
+<li><p>Ahmed Body Target Cell Size: 5 mm</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Tunnel</td>
+<td><ul>
 <li>Front Offset: 4 m</li>
 <li>Back Offset: 9 m</li>
 <li>Side Offset: 2 m</li>
 <li>Top Offset: 3 m</li>
-</ul>
-</div>
-</div>
-</div>
+</ul></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="mesh" class="level3">
 <h3 class="anchored" data-anchor-id="mesh">Mesh</h3>
@@ -409,9 +405,10 @@ Cd = 0.285
 </section>
 <section id="optimizing-meshing" class="level2">
 <h2 class="anchored" data-anchor-id="optimizing-meshing">Optimizing Meshing</h2>
-<p>Optimizing the meshing of the simulation is the most significant change we can make - as more cells results in slower simulation times, but also theoretically more accurate results. Therefore, to get an accurate display of data we need to simulate a wide range of cell counts.</p>
+<p>Optimizing the meshing of the simulation is the most significant change we can make - as more cells results in slower simulation times, but also theoretically more ‘accurate’<span class="math inline">\(^\ast\)</span> results. Therefore, to get an accurate display of data we need to simulate a wide range of cell counts.</p>
+<p><span class="math inline">\(^\ast\)</span>it should be noted that ‘accuracy’ is a misnomer here. I am simply referring to how close the results are compared to those in Ahmed et als. paper <span class="citation" data-cites="Ahmed">[<a href="#ref-Ahmed" role="doc-biblioref">1</a>]</span></p>
 <section id="optimal-base-and-ahmed-body-cell-sizes" class="level3">
-<h3 class="anchored" data-anchor-id="optimal-base-and-ahmed-body-cell-sizes">Optimal base and ahmed body cell sizes</h3>
+<h3 class="anchored" data-anchor-id="optimal-base-and-ahmed-body-cell-sizes">Optimal base and Ahmed Body cell sizes</h3>
 <p>One way to adjust the cell count of our simulation is to adjust the ‘Base Cell Size’ and ‘Ahmed Body Target Cell Size’ parameters.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -544,6 +541,12 @@ Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coeffic
 <h2 class="anchored" data-anchor-id="comparing-our-results">Comparing our Results</h2>
 <section id="parameters-and-results" class="level3">
 <h3 class="anchored" data-anchor-id="parameters-and-results">Parameters and Results</h3>
+<div id="tbl-ahmed-params-abs" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ahmed-params-abs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Ahmed Parameters
+</figcaption>
+<div aria-describedby="tbl-ahmed-params-abs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -630,11 +633,16 @@ Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coeffic
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
+<p>These results are absolutely astonishing. We obtained a Drag coefficient error that is 99.958% the value in Ahmed et als. paper <span class="citation" data-cites="Ahmed">[<a href="#ref-Ahmed" role="doc-biblioref">1</a>]</span>, 4% better than our benchmark, and it took us 10x less cells and 10x less time using these refined values.</p>
 </section>
 <section id="relative-parameters" class="level3">
 <h3 class="anchored" data-anchor-id="relative-parameters">Relative Parameters</h3>
 <p>Something important to note is that its possible the settings used for the Ahmed Body work better relatively than absolutely - ie.) since the Ahmed Body model is much smaller than an FSAE car model, the offsets and cell sizes might not have the same effect. As such, below are the calculated relative parameter values.</p>
 <table class="caption-top table">
+<caption>Dimensions of Ahmed Body</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Dimensions</th>
@@ -655,12 +663,23 @@ Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coeffic
 <td style="text-align: center;">0.288</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Bounding Box Surface Area (m^2)</td>
-<td style="text-align: center;">1637640</td>
+<td style="text-align: left;">Frontal Area (m^2)</td>
+<td style="text-align: center;">?</td>
 </tr>
 </tbody>
 </table>
+<div id="tbl-ahmed-params-rel" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ahmed-params-rel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Ahmed Parameters (Relative)
+</figcaption>
+<div aria-describedby="tbl-ahmed-params-rel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 40%">
+<col style="width: 27%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Parameter</th>
@@ -671,51 +690,54 @@ Figure&nbsp;7: Side and Top Tunnel Offsets and their Affects on the Drag Coeffic
 <tbody>
 <tr class="odd">
 <td>Front Offset</td>
-<td style="text-align: center;">4.0 / l</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{4.0}{\text{Length}}\)</span></td>
 <td style="text-align: center;">383.14%</td>
 </tr>
 <tr class="even">
 <td>Back Offset</td>
-<td style="text-align: center;">3.5 / l</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{3.5}{\text{Length}}\)</span></td>
 <td style="text-align: center;">335.25%</td>
 </tr>
 <tr class="odd">
 <td>Side Offset</td>
-<td style="text-align: center;">2 / (w / 2)</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{(0.5\cdot \text{Width})}\)</span></td>
 <td style="text-align: center;">257.07%</td>
 </tr>
 <tr class="even">
 <td>Top Offset</td>
-<td style="text-align: center;">3 / h</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{3}{\text{Height}}\)</span></td>
 <td style="text-align: center;">1041.6%</td>
 </tr>
 <tr class="odd">
 <td>Base Cell Size</td>
-<td style="text-align: center;">300^2 / SA</td>
-<td style="text-align: center;">5.4957%</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(300)^2}{\text{Front. Area}}\)</span></td>
+<td style="text-align: center;">?</td>
 </tr>
 <tr class="even">
 <td>Min Cell Size</td>
-<td style="text-align: center;">3^2 / SA</td>
-<td style="text-align: center;">0.00055%</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(3)^2}{\text{Front. Area}}\)</span></td>
+<td style="text-align: center;">?</td>
 </tr>
 <tr class="odd">
 <td>Max Cell Size</td>
-<td style="text-align: center;">350^2 / SA</td>
-<td style="text-align: center;">7.4803%</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(350)^2}{\text{Front. Area}}\)</span></td>
+<td style="text-align: center;">?</td>
 </tr>
 <tr class="even">
 <td>Target Cell Size</td>
-<td style="text-align: center;">125^2 / SA</td>
-<td style="text-align: center;">0.95411%</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(125)^2}{\text{Front. Area}}\)</span></td>
+<td style="text-align: center;">?</td>
 </tr>
 <tr class="odd">
 <td>Ahmed Body Target Cell Size</td>
-<td style="text-align: center;">5^2 / SA</td>
-<td style="text-align: center;">0.00152%</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(5)^2}{\text{Front. Area}}\)</span></td>
+<td style="text-align: center;">?</td>
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 </section>
 <section id="visuals" class="level3">
 <h3 class="anchored" data-anchor-id="visuals">Visuals</h3>
@@ -837,14 +859,13 @@ Figure&nbsp;11: Ahmed body scalar differences
 <h1>FSAE Cars</h1>
 <section id="applying-our-results-to-fsae" class="level2">
 <h2 class="anchored" data-anchor-id="applying-our-results-to-fsae">Applying Our Results to FSAE</h2>
-<p>The purpose of all of our analysis on the Ahmed Body was to hopefully improve the CFD times for FSAE cars while retaining (or improving) the accuracy via the drag coefficient. Therefore to see if we were successful in our endeavor we will do two simulations: one with the benchmark parameters, and one with the most efficient parameters we found. If the parameters we found prove to not be as effective as the benchmark parameters, we will do a second test where we change the parameter values from absolute to relative. The reasoning for this is that the size of Ahmed Body is different than that of an FSAE car, and thus would show different properties for the same parameters.</p>
-<p>One small issue with the following tests is that our club has never been able to acquire cd data off of an actual car, so there is no real way to benchmark results. As such, we have decided to simply CFD publicly available FSAE car models, and compare the results afterwards. The goal is to acquire cd results that are essentially equivalent across the benchmark and refined values, as we have no way of knowing which is more accurate, and simply wish for an improved cfd time.</p>
+<p>The purpose of all of our analysis on the Ahmed Body was to hopefully improve the CFD times for FSAE cars while retaining (or improving) the accuracy via the drag coefficient. Therefore to see if we were successful in our endeavor we will do two simulations: one with the benchmark parameters, and one with the most efficient parameters we found. If the parameters we found prove to not be as effective as the benchmark parameters, we will do a second test where we change the parameter values from absolute to relative. The reasoning for this is that the size of Ahmed Body is different than that of an FSAE car, and thus would show different properties for the same parameters, and hopefully using the relative values found in <a href="#tbl-ahmed-params-rel" class="quarto-xref">Table&nbsp;2</a>.</p>
 <section id="test-1" class="level3">
 <h3 class="anchored" data-anchor-id="test-1">Test 1</h3>
-<p>It should be noted that</p>
+<p>Below is the comparison for the values used in the test</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
+<col style="width: 39%">
 <col style="width: 25%">
 <col style="width: 34%">
 </colgroup>
