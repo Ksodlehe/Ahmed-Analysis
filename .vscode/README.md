@@ -14,7 +14,7 @@ find / -type d -path "*star/lib/java/platform/modules/ext" 2>/dev/null
 which will take singificantly longer to complete but will guarantee you find the library.
 
 ![image](Linux%20Path%20Find.png)
-(Timeshift is a program for backing up data my pc so ignore those results)
+(Timeshift is a program for backing up my pc so ignore those results)
 
 ### Windows
 For most windows users the library should be in the directory "C:/__USER__/Program Files/Siemens/__BUILD__/STAR-CCM+__BUILD__/star/lib/java/platform/modules/ext/" (where __USER__ and __BUILD__ are replaced with your pc user and star ccm build respectively). If that does not work you will need to find the directory manually.
