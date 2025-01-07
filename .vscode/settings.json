@@ -1,14 +1,6 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/opt/Siemens/19.02.009/STAR-CCM+19.02.009/star/lib/java/platform/modules/ext/*"
-        /* !!! Replace  ^ this line ^ with your own star library location! !!!
-         *
-         * for most linux users it should be in the same place I already put
-         * for most windows users the line should be "C:/{__USER__}/Program Files/Siemens/{__BUILD__}/STAR-CCM+{__BUILD__}/star/lib/java/platform/modules/ext/*"
-         *
-         * If those dont work then you need to find your Siemens folder, then find your STAR-CCM+ folder and go to star/lib/java/platform/modules/ext and 
-         * add the entire path as "$PATH/*" (without the $) to the specified line above
-         */
+        "/opt/Siemens/19.02.009/STAR-CCM+19.02.009/star/lib/java/platform/modules/ext/*",
     ]
 }
