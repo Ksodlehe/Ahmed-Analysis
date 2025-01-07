@@ -3,7 +3,7 @@ Inside the settings.json file there is a line (the second string inside "java.pr
 
 ## Finding the Library Directory
 ### Linux
-Most linux users should be fine, as the STAR-CCM installation defaults to the path I have included, however if it doesnt work you can try the following commands in your terminal:
+Most linux users should have their STAR library in the same directory as the one included (just switch out 19.02.009 with your build), however if it still doesnt work you can find the path of the library using the following commands in your terminal:
 ```
 find {"/home","/opt"} -type d -path "*star/lib/java/platform/modules/ext" 2>/dev/null
 ```
@@ -11,7 +11,7 @@ this will search your root `home` and `opt` folders for the library, but doesn't
 ```
 find / -type d -path "*star/lib/java/platform/modules/ext" 2>/dev/null
 ```
-which will take singificantly longer to complete but will guarantee you find the library.
+which will take significantly longer to complete but will guarantee you find the library.
 
 ![image](Linux%20Path%20Find.png)
 (Timeshift is a program for backing up my pc so ignore those results)
